@@ -1,4 +1,7 @@
 node_modules
 public/*
+test/public/*
 
-!public/index.html
+!**/public/index.html
+
+.DS_Store
