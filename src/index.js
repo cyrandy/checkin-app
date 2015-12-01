@@ -1,12 +1,8 @@
+import './index.sass'
 import ReactDOM from 'react-dom'
-
-class App extends React.Component {
-  render() {
-    return <div>hello world</div>
-  }
-}
+import CheckinPage from './containers/CheckinPage'
 
 ReactDOM.render(
-  <App />,
+  <CheckinPage />,
   document.getElementById('content')
 )
