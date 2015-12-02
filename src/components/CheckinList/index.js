@@ -1,3 +1,5 @@
+import React from 'react'
+
 let CheckinListItem = React.createClass({
   render: function() {
     return (

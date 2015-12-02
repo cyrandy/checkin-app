@@ -12,7 +12,4 @@ module.exports = {
       { test: /\.sass$/, loader: 'style!css?sourceMap!sass?sourceMap&indentedSyntax&outputStyle=expanded' }
     ]
   },
-  plugins: [
-    new webpack.ProvidePlugin({ React: 'react' })
-  ]
 }

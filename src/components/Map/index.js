@@ -1,3 +1,4 @@
+import React from 'react'
 import { GoogleMap, Marker, InfoWindow, GoogleMapLoader } from 'react-google-maps'
 let CheckinMap = React.createClass({
   componentWillUpdate: function(props, state) {
