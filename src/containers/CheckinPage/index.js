@@ -1,3 +1,5 @@
+import { connect } from 'react-redux'
+import { getUserLocation } from '../../actions'
 import CheckinMap from '../../components/Map'
 import CheckinList from '../../components/CheckinList'
 
@@ -22,14 +24,22 @@ let CheckinPage = React.createClass({
       ]
     }
   },
+  componentDidMount: function() {
+    this.props.dispatch(getUserLocation())
+  },
   render: function() {
     return (
       <div className='c-checkin-page'>
-        <CheckinMap {...this.state} />
+        <CheckinMap {...this.state} center={ this.props.geolocation } />
         <CheckinList {...this.state} />
       </div>
     )
   }
 })
 
-export default CheckinPage
+function select(state) {
+  let { geolocation } = state
+  return { geolocation }
+}
+export default connect(select)(CheckinPage)
+export { CheckinPage }

@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import TestUtils from 'react-addons-test-utils'
 import CheckinList from '../src/components/CheckinList'
 import CheckinMap from '../src/components/Map'
-import CheckinPage from '../src/containers/CheckinPage'
+import { CheckinPage } from '../src/containers/CheckinPage'
 
 function setup(Component, props) {
   let renderer = TestUtils.createRenderer()

@@ -1,5 +1,8 @@
 import { GoogleMap, Marker, InfoWindow, GoogleMapLoader } from 'react-google-maps'
 let CheckinMap = React.createClass({
+  componentWillUpdate: function(props, state) {
+    this.refs.map.props.map.setCenter(props.center)
+  },
   handleMapClick: function() { return },
   render: function() {
     return (
@@ -16,7 +19,7 @@ let CheckinMap = React.createClass({
           <GoogleMap
             ref='map'
             defaultZoom={13}
-            defaultCenter={{lat: 25.0497133, lng: 121.516291}}
+            defaultCenter={this.props.center}
             onClick={this.handleMapClick}>
             {this.props.markers.map((marker, index) => {
               return (
