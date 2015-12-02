@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import './components'
+import './actions'
 
 describe('Test', () => {
   it('should pass', () => {
