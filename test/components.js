@@ -1,4 +1,5 @@
 import { expect } from 'chai'
+import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import CheckinList from '../src/components/CheckinList'
 import CheckinMap from '../src/components/Map'

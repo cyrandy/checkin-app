@@ -1,6 +1,6 @@
 let geolocation = {
   use: function() {
-    this.nativeGetCurrentPosition = navigator.geolocation.getCurrentPosition
+    this.nativeGetCurrentPosition = function() {}
   },
   sendPosition: function({lat, lng}) {
     if( this.nativeGetCurrentPosition ) {

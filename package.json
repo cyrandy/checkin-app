@@ -6,8 +6,11 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack src ./public/bundle.js",
     "dev": "./node_modules/.bin/webpack-dev-server --content-base ./public/ --devtool eval --hot --inline --output ./public/bundle.js src/index.js",
-    "build-test": "./node_modules/.bin/webpack 'mocha!./test/index.js' ./test/public/bundle.js",
-    "test": "./node_modules/.bin/webpack-dev-server --content-base ./test/public --port 8000 --output ./test/public/bundle.js --hot --inline 'mocha!./test/index.js'"
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register --require ./test/setup.js",
+    "test:watch": "npm test -- --watch"
+  },
+  "babel": {
+    "presets": [ "react", "es2015" ]
   },
   "author": "cyrandy",
   "license": "ISC",
@@ -20,8 +23,10 @@
     "css-loader": "^0.23.0",
     "file-loader": "^0.8.5",
     "isomorphic-fetch": "^2.2.0",
+    "jsdom": "^7.1.0",
     "mocha": "^2.3.4",
     "mocha-loader": "^0.7.1",
+    "nock": "^3.3.2",
     "node-sass": "^3.4.2",
     "react": "^0.14.3",
     "react-addons-test-utils": "^0.14.3",
