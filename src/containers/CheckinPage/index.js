@@ -16,20 +16,35 @@ let CheckinPage = React.createClass({
     this.props.dispatch(getCheckins())
   },
   render: function() {
+    let mapComponent
+    if (!this.props.checkins.waitingPlaces
+        &&
+        this.props.checkins.items.length
+      ) {
+      mapComponent = (
+        <CheckinMap
+          center={ this.props.geolocation }
+          {...this.props.places} />
+      )
+    } else {
+      mapComponent = (<CheckinMap
+        center={ this.props.geolocation } />)
+    }
+
     return (
       <div className='c-checkin-page'>
-        <CheckinMap {...this.state}
-          center={ this.props.geolocation }
-          markers={ this.props.checkins.items } />
-        <CheckinList {...this.state} markers={ this.props.checkins.items } />
+        {
+          mapComponent
+        }
+        <CheckinList markers={ this.props.checkins.items } />
       </div>
     )
   }
 })
 
 function select(state) {
-  let { geolocation, checkins } = state
-  return { geolocation, checkins }
+  let { geolocation, checkins, places } = state
+  return { geolocation, checkins, places }
 }
 export default connect(select)(CheckinPage)
 export { CheckinPage }

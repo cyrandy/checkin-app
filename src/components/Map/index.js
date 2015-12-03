@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import { GoogleMap, Marker, InfoWindow, GoogleMapLoader } from 'react-google-maps'
 let CheckinMap = React.createClass({
   componentWillUpdate: function(props, state) {
@@ -8,6 +9,13 @@ let CheckinMap = React.createClass({
   },
   handleMapClick: function() { return },
   render: function() {
+    let markers = _.map(this.props.places, (place) => {
+      return {
+        position: {lat: place.lat, lng: place.lng},
+        key: place.id,
+        defaultAnimation: 2
+      }
+    })
     return (
       <GoogleMapLoader
         containerElement={
@@ -24,17 +32,13 @@ let CheckinMap = React.createClass({
             defaultZoom={13}
             defaultCenter={this.props.center}
             onClick={this.handleMapClick}>
-            {this.props.markers.map((marker, index) => {
-              return (
-                <Marker {...marker} key={`marker_${index}`}>
-                  <InfoWindow>
-                    <div>
-                      <strong>marker {index}</strong>
-                    </div>
-                  </InfoWindow>
-                </Marker>
-              );
-            })}
+            {
+              markers.map((marker) => {
+                return (
+                  <Marker {...marker} />
+                )
+              })
+            }
           </GoogleMap>
         }
       />

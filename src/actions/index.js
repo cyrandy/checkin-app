@@ -25,7 +25,7 @@ export function getCheckins(lat = 25.045, lng = 121.532) {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'TOKEN': 'c1921145ad58cf45c78f95f47b9c426a'
+        'TOKEN': '014a9d66d819e4d52e76c40d0e550c78'
       },
       body: JSON.stringify({ lat, lng })
     })
@@ -55,7 +55,7 @@ export function getCheckinsPlaces({checkins, center}) {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'TOKEN': 'c1921145ad58cf45c78f95f47b9c426a'
+          'TOKEN': '014a9d66d819e4d52e76c40d0e550c78'
         },
       })
       .then((response) => { return response.json() })
