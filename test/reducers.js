@@ -51,6 +51,31 @@ describe('Reducers', () => {
     })
   })
 
+  describe('Places', () => {
+    it('should return initial state', () => {
+      expect(reducers.places(undefined, {})).to.eql({places: undefined})
+    })
+
+    it('should handle PLACES_SUCCESS', () => {
+      const originPlace = {
+        1: { foo: 'bar' }
+      }
+      expect(reducers.places({
+        places: originPlace
+      }, {
+        type: 'PLACES_SUCCESS',
+        places: {
+          2: { foo: 'bar' }
+        }
+      })).to.eql({
+        places: {
+          1: { foo: 'bar' },
+          2: { foo: 'bar' }
+        }
+      })
+    })
+  })
+
   describe('Geolocation', () => {
     const initialState = { lat: 25.0497133, lng: 121.516291 }
 
