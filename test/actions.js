@@ -7,39 +7,47 @@ import * as actions from '../src/actions'
 
 const middlewares = [ thunk ]
 
+const response = {
+    checkins : [{
+      id : 3,
+      comment : "打卡3",
+      photo : "",
+      user_id : 2,
+      place_id : 1,
+      created_at : "2015-04-08T10:53:59.004Z"
+    }, {
+      id : 2,
+      comment : "打卡2",
+      photo : "",
+      user_id : 2,
+      place_id : 2,
+      created_at : "2015-04-08T10:53:59.001Z"
+    }]
+  }
+
+const checkinsExpectedActions = [
+  { type: actions.CHECKINS_REQUEST, isFetching: true },
+  { type: actions.CHECKINS_SUCCESS, checkins: response.checkins }
+]
 describe('Actions', () => {
+
+
+  beforeEach(() => {
+    nock('https://commandp-lbs-backend.herokuapp.com')
+    .post('/api/v1/checkins/neighbor')
+    .reply(200, response)
+  })
+
+  afterEach(() => {
+    nock.cleanAll()
+  })
+
   describe('Checkins', () => {
-    afterEach(() => {
-      nock.cleanAll()
-    })
+
 
     it('should dispatch CHECKINS_SUCCESS when checkins api response', (done) => {
-      const response = {
-        checkins : [{
-          id : 3,
-          comment : "打卡3",
-          photo : "",
-          user_id : 2,
-          place_id : 1,
-          created_at : "2015-04-08T10:53:59.004Z"
-        }, {
-          id : 2,
-          comment : "打卡2",
-          photo : "",
-          user_id : 2,
-          place_id : 2,
-          created_at : "2015-04-08T10:53:59.001Z"
-        }]
-      }
-
-      nock('https://commandp-lbs-backend.herokuapp.com')
-      .post('/api/v1/checkins/neighbor')
-      .reply(200, response)
-
-      const expectedActions = [
-        { type: actions.CHECKINS_REQUEST, isFetching: true },
-        { type: actions.CHECKINS_SUCCESS, checkins: response.checkins }
-      ]
+      // copy a new array which avoid shifted to empty in mockStore
+      const expectedActions = checkinsExpectedActions.slice()
       const store = mockStore(
         {},
         expectedActions,
@@ -64,6 +72,7 @@ describe('Actions', () => {
 
       const expectedActions = [
         { type: actions.LOCATION_SUCCESS, location: expectedLocation },
+        ...(checkinsExpectedActions.slice())
       ]
 
       const store = mockStore(
