@@ -2,7 +2,9 @@ import React from 'react'
 import { GoogleMap, Marker, InfoWindow, GoogleMapLoader } from 'react-google-maps'
 let CheckinMap = React.createClass({
   componentWillUpdate: function(props, state) {
-    this.refs.map.props.map.setCenter(props.center)
+    if (this.refs.map) {
+      this.refs.map.props.map.setCenter(props.center)
+    }
   },
   handleMapClick: function() { return },
   render: function() {

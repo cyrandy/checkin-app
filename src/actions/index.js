@@ -19,9 +19,9 @@ export function getCheckins(lat = 25.045, lng = 121.532) {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'TOKEN': 'f198170c7cb0da3c43a9554069119365'
+        'TOKEN': 'c1921145ad58cf45c78f95f47b9c426a'
       },
-      body: { lat, lng }
+      body: JSON.stringify({ lat, lng })
     })
     .then((response) => { return response.json() })
     .then((json) => { dispatch(requestCheckinsSuccess(json.checkins))} )
@@ -42,10 +42,15 @@ export function getUserLocation() {
     getGeoLocation()
     .then((position) => {
       let { latitude, longitude } = position.coords
+      let location = { lat: latitude, lng: longitude }
       dispatch({
         type: LOCATION_SUCCESS,
-        location: { lat: latitude, lng: longitude }
+        location
       })
+      return location
+    })
+    .then(({lat, lng}) => {
+      dispatch(getCheckins(lat, lng))
     })
     .catch((error) => {
       dispatch({
