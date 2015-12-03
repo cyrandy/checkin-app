@@ -12,6 +12,8 @@ describe('Reducers', () => {
       place_id : 2,
       created_at : "2015-04-08T10:53:59.001Z"
     }]
+    const center = { lat: 10, lng: 10 }
+
     it('should return initial state', () => {
       const initialState = {
         isFetching: false,
@@ -24,14 +26,28 @@ describe('Reducers', () => {
       expect(reducers.checkins(undefined, {
         type: actionTypes.CHECKINS_REQUEST,
         isFetching: true
-      })).to.eql({isFetching: true, items: []})
+      })).to.eql({isFetching: true, items: [], waitingPlaces: true})
     })
 
     it('should handle CHECKINS_SUCCESS', () => {
       expect(reducers.checkins(undefined, {
         type: actionTypes.CHECKINS_SUCCESS,
-        checkins: items
-      })).to.eql({isFetching: false, items})
+        checkins: items,
+        center: center
+      })).to.eql({isFetching: false, items, waitingPlaces: true, center})
+    })
+
+    it('should handle CHECKINS_PLACES_SUCCESS', () => {
+      // only change waitplaces to true when center matched current center
+      expect(reducers.checkins({isFetching: false, items, waitingPlaces: true, center}, {
+        type: actionTypes.CHECKINS_PLACES_SUCCESS,
+        center: center
+      })).to.eql({isFetching: false, items, waitingPlaces: false, center})
+
+      expect(reducers.checkins({isFetching: false, items, waitingPlaces: true, center}, {
+        type: actionTypes.CHECKINS_PLACES_SUCCESS,
+        center: { lat: 0, lng: 0 }
+      })).to.eql({isFetching: false, items, waitingPlaces: true, center})
     })
   })
 
