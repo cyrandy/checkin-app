@@ -25,9 +25,11 @@ const response = {
     }]
   }
 
+const defaultCenter = { lat: 10, lng: 20 }
+
 const checkinsExpectedActions = [
   { type: actions.CHECKINS_REQUEST, isFetching: true },
-  { type: actions.CHECKINS_SUCCESS, checkins: response.checkins }
+  { type: actions.CHECKINS_SUCCESS, checkins: response.checkins, center: defaultCenter },
 ]
 describe('Actions', () => {
 
@@ -54,7 +56,7 @@ describe('Actions', () => {
         done
       ).applyMiddleware(middlewares)
 
-      store.dispatch(actions.getCheckins())
+      store.dispatch(actions.getCheckins(defaultCenter.lat, defaultCenter.lng))
     })
   })
 
@@ -67,11 +69,10 @@ describe('Actions', () => {
     })
 
     it('creates LOCATION_SUCCESS with location when get geolocation success', (done) => {
-      const expectedLocation = { lat: 10, lng: 20 }
-      geolocate.sendPosition(expectedLocation)
+      geolocate.sendPosition(defaultCenter)
 
       const expectedActions = [
-        { type: actions.LOCATION_SUCCESS, location: expectedLocation },
+        { type: actions.LOCATION_SUCCESS, location: defaultCenter },
         ...(checkinsExpectedActions.slice())
       ]
 
