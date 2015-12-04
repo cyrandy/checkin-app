@@ -15,7 +15,7 @@ let CheckinListItem = React.createClass({
 let CheckinList = React.createClass({
   render: function() {
     return (
-      <ul className='c-checkin-list'>
+      <ul className='c-checkin-list c-checkin-page__content'>
         {this.props.checkins.items.map((checkin, index) => {
           let placeName =  ''
           if(!this.props.checkins.waitingPlaces) {
