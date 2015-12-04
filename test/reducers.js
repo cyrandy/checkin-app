@@ -53,25 +53,21 @@ describe('Reducers', () => {
 
   describe('Places', () => {
     it('should return initial state', () => {
-      expect(reducers.places(undefined, {})).to.eql({places: undefined})
+      expect(reducers.places({foo: 'bar'}, {})).to.eql({foo: 'bar'})
     })
 
     it('should handle PLACES_SUCCESS', () => {
       const originPlace = {
         1: { foo: 'bar' }
       }
-      expect(reducers.places({
-        places: originPlace
-      }, {
+      expect(reducers.places(originPlace, {
         type: 'PLACES_SUCCESS',
         places: {
           2: { foo: 'bar' }
         }
       })).to.eql({
-        places: {
-          1: { foo: 'bar' },
-          2: { foo: 'bar' }
-        }
+        1: { foo: 'bar' },
+        2: { foo: 'bar' }
       })
     })
   })
