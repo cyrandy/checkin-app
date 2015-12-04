@@ -35,15 +35,11 @@ describe('Components', () => {
   describe('CheckinList', () => {
     it('should render correctly', () => {
       const { output } = setup(CheckinList, {
-        markers: [
-          {
-            position: {
-              lat: 25.0258386,
-              lng: 121.4682614
-            },
-            defaultAnimation: 2
-          }
-        ]
+        checkins: {
+          items: [{place_id: 1}],
+
+        },
+        places: {1: {name: 'foo'}}
       })
 
       expect(output.type).to.equal('ul')
@@ -52,6 +48,7 @@ describe('Components', () => {
 
       expect(children.length).to.equal(1)
       expect(children[0].type.displayName).to.equal('CheckinListItem')
+      expect(children[0].props).to.eql({place_id: 1, placeName: 'foo'})
     })
   })
 })

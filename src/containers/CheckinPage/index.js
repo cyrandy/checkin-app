@@ -33,10 +33,9 @@ let CheckinPage = React.createClass({
 
     return (
       <div className='c-checkin-page'>
-        {
-          mapComponent
-        }
-        <CheckinList markers={ this.props.checkins.items } />
+        <CheckinMap
+          {...this.props} />
+        <CheckinList {...this.props} />
       </div>
     )
   }
