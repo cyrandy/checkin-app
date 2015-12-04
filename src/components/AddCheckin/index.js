@@ -1,5 +1,6 @@
 import React from 'react'
 import FormData from 'react-form-data'
+import { postCheckin } from '../../actions'
 
 let AddCheckin = React.createClass({
   mixins: [ FormData ],
@@ -13,6 +14,7 @@ let AddCheckin = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault()
     console.log(this.formData)
+    this.props.dispatch(postCheckin(this.formData))
   },
   render: function() {
     return (

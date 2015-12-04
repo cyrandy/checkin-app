@@ -73,7 +73,7 @@ describe('Reducers', () => {
   })
 
   describe('Geolocation', () => {
-    const initialState = { lat: 25.0497133, lng: 121.516291 }
+    const initialState = { lat: 25.047288, lng: 121.517455 }
 
     it('should return initial state', () => {
       expect(reducers.geolocation(undefined, {})).to.eql(initialState)
