@@ -9,13 +9,23 @@ let CheckinMap = React.createClass({
   },
   handleMapClick: function() { return },
   render: function() {
-    let markers = _.map(this.props.places, (place) => {
-      return {
-        position: {lat: place.lat, lng: place.lng},
-        key: place.id,
-        defaultAnimation: 2
-      }
-    })
+    let markers = []
+    if (!this.props.checkins.waitingPlaces) {
+      let placeIds = _.chain(this.props.checkins.items)
+        .pluck('place_id')
+        .uniq()
+        .value()
+
+      markers = placeIds.map((id) => {
+        let place = this.props.places[id]
+        return {
+          position: {lat: place.lat, lng: place.lng},
+          key: place.id,
+          defaultAnimation: 2
+        }
+      })
+    }
+
     return (
       <GoogleMapLoader
         containerElement={
@@ -35,7 +45,7 @@ let CheckinMap = React.createClass({
             {
               markers.map((marker) => {
                 return (
-                  <Marker {...marker} />
+                  <Marker {...marker} key={marker.key} />
                 )
               })
             }
