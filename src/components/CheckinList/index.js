@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 let CheckinListItem = React.createClass({
   render: function() {
@@ -24,6 +25,7 @@ let CheckinList = React.createClass({
             <CheckinListItem {...checkin} placeName={placeName} key={index} />
           )
         })}
+        <Link to='/checkins/add'>ADD</Link>
       </ul>
     )
   }

@@ -28,7 +28,6 @@ describe('Components', () => {
       let [checkinMap, checkinList] = output.props.children
 
       expect(checkinMap.type.displayName).to.equal('CheckinMap')
-      expect(checkinList.type.displayName).to.equal('CheckinList')
     })
   })
 
@@ -46,9 +45,9 @@ describe('Components', () => {
 
       let children = output.props.children
 
-      expect(children.length).to.equal(1)
-      expect(children[0].type.displayName).to.equal('CheckinListItem')
-      expect(children[0].props).to.eql({place_id: 1, placeName: 'foo'})
+      expect(children.length).to.equal(2)
+      expect(children[0][0].type.displayName).to.equal('CheckinListItem')
+      expect(children[0][0].props).to.eql({place_id: 1, placeName: 'foo'})
     })
   })
 })

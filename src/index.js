@@ -1,5 +1,6 @@
 import './index.sass'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
+import { Router, Route, IndexRoute } from 'react-router'
 
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
@@ -7,13 +8,18 @@ import thunk from 'redux-thunk'
 import checkinApp from './reducers'
 
 import CheckinPage from './containers/CheckinPage'
+import CheckinList from './components/CheckinList'
 
 let createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
 let store                     = createStoreWithMiddleware(checkinApp)
 
-ReactDOM.render(
+render(
   <Provider store={ store }>
-    <CheckinPage />
+    <Router>
+      <Route path="/checkins" component={CheckinPage}>
+        <IndexRoute component={CheckinList} />
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('content')
 )

@@ -35,7 +35,7 @@ let CheckinPage = React.createClass({
       <div className='c-checkin-page'>
         <CheckinMap
           {...this.props} />
-        <CheckinList {...this.props} />
+        {this.props.children && React.cloneElement(this.props.children, this.props)}
       </div>
     )
   }
