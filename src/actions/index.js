@@ -166,7 +166,7 @@ function getUserSuccess(user) {
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 
-function loginSuccess(user) {
+function loginSuccess() {
   return { type: LOGIN_SUCCESS }
 }
 
@@ -182,7 +182,7 @@ export function login(user) {
     })
     .then((response) => { return response.json() })
     .then((user) => {
-      dispatch(loginSuccess(user))
+      dispatch(loginSuccess())
       dispatch(getUserSuccess(user))
     })
   }
