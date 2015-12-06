@@ -20,7 +20,7 @@ let LoginPage = React.createClass({
   },
   render: function() {
     return (
-      <div>
+      <div className='c-login-form-container'>
         <LoginForm onLogin={ this.handleLoginRequest } />
       </div>
     )

@@ -18,6 +18,7 @@ let store                     = createStoreWithMiddleware(checkinApp)
 render(
   <Provider store={ store }>
     <Router>
+      <Route path='/' component={LoginPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/checkins" component={CheckinPage}>
         <IndexRoute component={CheckinList} />

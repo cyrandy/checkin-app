@@ -10,11 +10,12 @@ let LoginForm = React.createClass({
   render: function() {
     return (
       <form
+        className='c-login-form'
         onChange={ this.updateFormData }
         onSubmit={ this.handleSubmit }>
-        <input type='text' name='username' placeholder='account' />
-        <input type='password' name='password' placeholder='password' />
-        <input type='submit' value='Login' />
+        <input className='c-login-form__input' type='text' name='username' placeholder='account' />
+        <input className='c-login-form__input' type='password' name='password' placeholder='password' />
+        <input className='c-login-form__input' type='submit' value='Login' />
       </form>
     )
   }
