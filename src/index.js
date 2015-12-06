@@ -10,6 +10,7 @@ import checkinApp from './reducers'
 import CheckinPage from './containers/CheckinPage'
 import CheckinList from './components/CheckinList'
 import AddCheckin from './components/AddCheckin'
+import LoginPage from './containers/LoginPage'
 
 let createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
 let store                     = createStoreWithMiddleware(checkinApp)
@@ -17,6 +18,7 @@ let store                     = createStoreWithMiddleware(checkinApp)
 render(
   <Provider store={ store }>
     <Router>
+      <Route path="/login" component={LoginPage} />
       <Route path="/checkins" component={CheckinPage}>
         <IndexRoute component={CheckinList} />
         <Route path="add" component={AddCheckin} />
