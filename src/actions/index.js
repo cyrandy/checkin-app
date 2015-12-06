@@ -35,7 +35,7 @@ export function getCheckins(lat = 25.047288, lng = 121.517455) {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'TOKEN': 'ad6030450ad5a364930eb78377cd049d'
+        'TOKEN': localStorage['TOKEN']
       },
       body: JSON.stringify({ lat, lng })
     })
@@ -64,13 +64,14 @@ function addPlaceSuccess(place) {
 
 export function getCheckinsPlaces({checkins, center}) {
   let placeIds = _.chain(checkins).pluck('place_id').uniq().value()
+  let token = localStorage['TOKEN']
   return function(dispatch) {
     Promise.all(placeIds.map((id) => {
       return fetch(`https://commandp-lbs-backend.herokuapp.com/api/v1/places/${id}`, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'TOKEN': 'ad6030450ad5a364930eb78377cd049d'
+          'TOKEN': localStorage['TOKEN']
         },
       })
       .then((response) => { return response.json() })
@@ -90,7 +91,7 @@ export function postCheckin(data) {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'TOKEN': 'ad6030450ad5a364930eb78377cd049d'
+        'TOKEN': localStorage['TOKEN']
       },
       method: 'post',
       body: JSON.stringify({
@@ -109,7 +110,7 @@ export function postCheckin(data) {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'TOKEN': 'ad6030450ad5a364930eb78377cd049d'
+          'TOKEN': localStorage['TOKEN']
         },
         method: 'post',
         body: JSON.stringify({
@@ -182,6 +183,7 @@ export function login(user) {
     })
     .then((response) => { return response.json() })
     .then((user) => {
+      localStorage.setItem('TOKEN', user.access_token)
       dispatch(loginSuccess())
       dispatch(getUserSuccess(user))
     })

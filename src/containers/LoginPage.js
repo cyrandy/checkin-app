@@ -4,8 +4,14 @@ import LoginForm from '../components/LoginForm'
 import { login } from '../actions'
 
 let LoginPage = React.createClass({
+  componentWillMount: function() {
+    this.handleIsLogin(this.props.login.loginSuccess)
+  },
   componentWillReceiveProps: function(props) {
-    if(props.login.loginSuccess) {
+    this.handleIsLogin(props.login.loginSuccess)
+  },
+  handleIsLogin: function(isLogin) {
+    if(isLogin) {
       this.props.history.replace('/checkins')
     }
   },
