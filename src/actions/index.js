@@ -4,6 +4,7 @@ import _ from 'lodash'
 export const CHECKINS_REQUEST = 'CHECKINS_REQUEST'
 export const CHECKINS_SUCCESS = 'CHECKINS_SUCCESS'
 export const CHECKINS_PLACES_SUCCESS = 'CHECKINS_PLACES_SUCCESS'
+export const ADD_CHECKIN_REQUEST = 'ADD_CHECKIN_REQUEST'
 export const ADD_CHECKIN_SUCCESS = 'ADD_CHECKIN_SUCCESS'
 
 function requestCheckins() {
@@ -18,6 +19,10 @@ function getCheckinsPlacesSuccess(center) {
   return { type: CHECKINS_PLACES_SUCCESS, center }
 }
 
+function addCheckinRequest() {
+  return { type: ADD_CHECKIN_REQUEST }
+}
+
 function addCheckinSuccess(checkin) {
   return { type: ADD_CHECKIN_SUCCESS, checkin }
 }
@@ -30,7 +35,7 @@ export function getCheckins(lat = 25.047288, lng = 121.517455) {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'TOKEN': '014a9d66d819e4d52e76c40d0e550c78'
+        'TOKEN': 'ad6030450ad5a364930eb78377cd049d'
       },
       body: JSON.stringify({ lat, lng })
     })
@@ -65,7 +70,7 @@ export function getCheckinsPlaces({checkins, center}) {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'TOKEN': '014a9d66d819e4d52e76c40d0e550c78'
+          'TOKEN': 'ad6030450ad5a364930eb78377cd049d'
         },
       })
       .then((response) => { return response.json() })
@@ -80,11 +85,12 @@ export function getCheckinsPlaces({checkins, center}) {
 
 export function postCheckin(data) {
   return function(dispatch) {
+    dispatch(addCheckinRequest())
     fetch(`https://commandp-lbs-backend.herokuapp.com/api/v1/places`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'TOKEN': '014a9d66d819e4d52e76c40d0e550c78'
+        'TOKEN': 'ad6030450ad5a364930eb78377cd049d'
       },
       method: 'post',
       body: JSON.stringify({
@@ -103,7 +109,7 @@ export function postCheckin(data) {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'TOKEN': '014a9d66d819e4d52e76c40d0e550c78'
+          'TOKEN': 'ad6030450ad5a364930eb78377cd049d'
         },
         method: 'post',
         body: JSON.stringify({
@@ -113,7 +119,9 @@ export function postCheckin(data) {
       })
     })
     .then((response) => { return response.json() })
-    .then(({checkin}) => { console.log(checkin) })
+    .then(({checkin}) => {
+      dispatch(addCheckinSuccess(checkin))
+    })
   }
 }
 

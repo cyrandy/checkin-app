@@ -11,9 +11,13 @@ let AddCheckin = React.createClass({
       lng: geolocation.lng
     }
   },
+  componentWillReceiveProps: function(props) {
+    if(props.checkins.addCheckinSuccess) {
+      props.history.push('/checkins')
+    }
+  },
   handleSubmit: function(e) {
     e.preventDefault()
-    console.log(this.formData)
     this.props.dispatch(postCheckin(this.formData))
   },
   render: function() {

@@ -20,6 +20,12 @@ export default function checkins(state={
         return Object.assign({}, state, { waitingPlaces: false })
       }
       return state
+    case actionTypes.ADD_CHECKIN_REQUEST:
+      return Object.assign({}, state, { addCheckinSuccess: false })
+    case actionTypes.ADD_CHECKIN_SUCCESS:
+      let items = state.items.slice()
+      items.push(action.checkin)
+      return Object.assign({}, state, { items, addCheckinSuccess: true })
     default:
       return state
   }
