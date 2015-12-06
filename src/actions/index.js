@@ -167,7 +167,8 @@ function getUserSuccess(user) {
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 
-function loginSuccess() {
+function loginSuccess(token) {
+  localStorage.setItem('TOKEN', token)
   return { type: LOGIN_SUCCESS }
 }
 
@@ -183,9 +184,56 @@ export function login(user) {
     })
     .then((response) => { return response.json() })
     .then((user) => {
-      localStorage.setItem('TOKEN', user.access_token)
-      dispatch(loginSuccess())
+      dispatch(loginSuccess(user.access_token))
       dispatch(getUserSuccess(user))
+    })
+  }
+}
+
+export function register(user) {
+  return function(dispatch) {
+    fetch('https://commandp-lbs-backend.herokuapp.com/api/v1/register', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'post',
+      body: JSON.stringify(user)
+    })
+    .then((response) => { return response.json() })
+    .then((user) => {
+      dispatch(loginSuccess(user.access_token))
+      dispatch(recordUserDevice(user.access_token))
+      dispatch(getUserSuccess(user))
+    })
+  }
+}
+
+function recordUserDevice(token) {
+  return function(dispatch) {
+    fetch('https://commandp-lbs-backend.herokuapp.com/api/v1/who', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'TOKEN': token
+      }
+    })
+    .then((response) => { return response.json() })
+    .then(({os, os_version}) => {
+      return fetch('https://commandp-lbs-backend.herokuapp.com/api/v1/my/devices', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'TOKEN': token
+        },
+        method: 'post',
+        body: JSON.stringify({
+          device: {
+            device_type: os,
+            os_version
+          }
+        })
+      })
     })
   }
 }

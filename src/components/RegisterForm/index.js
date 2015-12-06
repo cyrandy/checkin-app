@@ -5,6 +5,7 @@ let RegisterForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault()
     console.log(this.formData)
+    this.props.onRegister(this.formData)
   },
   handleFileSelect: function(e) {
     e.stopPropagation()
