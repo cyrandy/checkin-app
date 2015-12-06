@@ -115,7 +115,8 @@ export function postCheckin(data) {
         method: 'post',
         body: JSON.stringify({
           place_id: place.id,
-          comment: data.comment
+          comment: data.comment,
+          photo: data.photo
         })
       })
     })

@@ -20,17 +20,41 @@ let AddCheckin = React.createClass({
     e.preventDefault()
     this.props.dispatch(postCheckin(this.formData))
   },
+  handleFileSelect: function(e) {
+    e.stopPropagation()
+    let file = e.target.files[0]
+    if (!file.type.match('image.*')) {
+      return
+    }
+
+    let reader = new FileReader()
+    reader.onload = (e) => {
+      this.setFormData('photo', e.target.result)
+    }
+
+    reader.readAsDataURL(file)
+  },
   render: function() {
     return (
       <form
         className='c-checkin-page__content'
         onChange={this.updateFormData}
         onSubmit={ this.handleSubmit }>
-        <label htmlFor='name' ref='placeName'>地點</label>
-        <input type='text' name='name' />
-        <label htmlFor='comment'>留言</label>
-        <input type='text' name='comment' ref='comment' />
-        <input type='submit' value='Check In' />
+        <div>
+          <label htmlFor='name' ref='placeName'>地點</label>
+          <input type='text' name='name' />
+        </div>
+        <div>
+          <label htmlFor='comment'>留言</label>
+          <input type='text' name='comment' ref='comment' />
+        </div>
+        <div>
+          <label htmlFor='comment'>照片</label>
+          <input type='file' name='avatar' accept='image/jpeg,image/png' onChange={ this.handleFileSelect }/>
+        </div>
+        <div>
+          <input type='submit' value='Check In' />
+        </div>
       </form>
     )
   }
