@@ -5,7 +5,7 @@ let LoginForm = React.createClass({
   mixins: [ FormData ],
   handleSubmit: function(e) {
     e.preventDefault()
-    console.log(this.formData)
+    this.props.onLogin(this.formData)
   },
   render: function() {
     return (

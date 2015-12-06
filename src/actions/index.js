@@ -157,3 +157,33 @@ export function getUserLocation() {
     })
   }
 }
+
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS'
+
+function getUserSuccess(user) {
+  return { type: GET_USER_SUCCESS, user }
+}
+
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+
+function loginSuccess(user) {
+  return { type: LOGIN_SUCCESS }
+}
+
+export function login(user) {
+  return function(dispatch) {
+    fetch('https://commandp-lbs-backend.herokuapp.com/api/v1/login', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'put',
+      body: JSON.stringify(user)
+    })
+    .then((response) => { return response.json() })
+    .then((user) => {
+      dispatch(loginSuccess(user))
+      dispatch(getUserSuccess(user))
+    })
+  }
+}
