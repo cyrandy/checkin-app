@@ -4,6 +4,11 @@ import LoginForm from '../components/LoginForm'
 import { login } from '../actions'
 
 let LoginPage = React.createClass({
+  componentWillReceiveProps: function(props) {
+    if(props.login.loginSuccess) {
+      this.props.history.replace('/checkins')
+    }
+  },
   handleLoginRequest: function(user) {
     this.props.dispatch(login(user))
   },
@@ -16,5 +21,8 @@ let LoginPage = React.createClass({
   }
 })
 
-export default connect()(LoginPage)
+function select({login}) {
+  return {login}
+}
+export default connect(select)(LoginPage)
 export { LoginPage }
