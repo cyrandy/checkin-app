@@ -1,3 +1,4 @@
+import React from 'react'
 import FormData from 'react-form-data'
 
 let RegisterForm = React.createClass({
