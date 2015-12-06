@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import LoginForm from '../components/LoginForm'
 import { login } from '../actions'
@@ -22,6 +23,7 @@ let LoginPage = React.createClass({
     return (
       <div className='c-login-form-container'>
         <LoginForm onLogin={ this.handleLoginRequest } />
+        <Link to='/register'>Create new account</Link>
       </div>
     )
   }
